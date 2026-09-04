@@ -14,6 +14,11 @@ export const TodoInput = styled.input`
   margin-left: 10px;
   background-color: transparent;
 
+  &:focus-visible {
+    outline: 2px solid var(--theme-color);
+    outline-offset: 2px;
+  }
+
   @media (min-width: 768px) {
     width: 418px;
     height: 40px;

@@ -30,7 +30,7 @@ export const Structure = () => {
   return (
     <main>
       <Header height={100} width={100}>
-        <CustomizeBtn onClick={toggleDiv} />
+        <CustomizeBtn onClick={toggleDiv} aria-label="Customize background" aria-expanded={value === "open"} />
         {value === "open" ? <BackgroundContainer /> : null}
       </Header>
       <div className="main-grid">

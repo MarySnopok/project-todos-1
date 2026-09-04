@@ -26,16 +26,21 @@ export const AllTodoList = () => {
         <div className="one-todo-wrapper" key={item.id}>
           <div className="flex-item">
             <label className="switch">
-              <input className="tick" type="checkbox" checked={item.isComplete} onChange={() => onToggleTodo(item.id)} />
-              <span className="custom-checkbox" aria-label="decoration" />
+              <input
+                className="tick"
+                type="checkbox"
+                checked={item.isComplete}
+                onChange={() => onToggleTodo(item.id)}
+                aria-label={`Mark "${item.text}" as ${item.isComplete ? "not complete" : "complete"}`} />
+              <span className="custom-checkbox" />
             </label>
             <p className={item.isComplete ? "completed" : "uncompleted"}>{item.text}</p>
-            <DeleteBtn width={20} height={20} onClick={() => onDeleteTodo(item.id)}>
-              <img className="bin" aria-label="icon" alt="icon" src={bin} />
+            <DeleteBtn width={20} height={20} onClick={() => onDeleteTodo(item.id)} aria-label={`Delete "${item.text}"`}>
+              <img className="bin" alt="" src={bin} />
             </DeleteBtn>
           </div>
           <CreationDate item={item} />
-          <span className="due-date" aria-label="date picker" role="button">
+          <span className="due-date">
             due:
             <DatePick item={item} />
           </span>

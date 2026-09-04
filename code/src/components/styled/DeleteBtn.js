@@ -12,8 +12,7 @@ const rotate = keyframes`
 
 export const DeleteBtn = styled.button`
   background-color: transparent;
-  border: 2px solid grey;
-  border-radius: 100%;
+  border: none;
   width: ${(props) => props.width}px;
   height: ${(props) => props.height}px;
   display: flex;
@@ -24,7 +23,7 @@ export const DeleteBtn = styled.button`
 
   &:hover {
     animation: ${rotate} 2s linear infinite;
-    border: 2px solid palevioletred;
+    border: none;
   }
 
   @media (min-width: 768px) {
