@@ -22,16 +22,16 @@ export const AllTodoList = () => {
 
   return (
     <section className="todo-wrapper">
-      {items.map((item, index) => (
+      {items.map((item) => (
         <div className="one-todo-wrapper" key={item.id}>
           <div className="flex-item">
             <label className="switch">
               <input className="tick" type="checkbox" checked={item.isComplete} onChange={() => onToggleTodo(item.id)} />
-              <span className="custom-checkbox" aria-label="decoration"></span>
+              <span className="custom-checkbox" aria-label="decoration" />
             </label>
             <p className={item.isComplete ? "completed" : "uncompleted"}>{item.text}</p>
             <DeleteBtn width={20} height={20} onClick={() => onDeleteTodo(item.id)}>
-              <img className="bin" aria-label="icon" alt="icon" src={bin}></img>
+              <img className="bin" aria-label="icon" alt="icon" src={bin} />
             </DeleteBtn>
           </div>
           <CreationDate item={item} />

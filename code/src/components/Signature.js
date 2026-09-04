@@ -1,5 +1,5 @@
 import React from "react";
-import { Footer } from "components/styled/Footer";
+import { Footer } from "./styled/Footer";
 
 export const Signature = () => {
   return (
@@ -7,7 +7,7 @@ export const Signature = () => {
       <div className="contacts-wrapper">
         <p>
           created and developed by &#8203;
-          <a className="link" href="https://mary-snopok.com" target="_blank" rel="noopener noreferrer">
+          <a className="link" href="https://snopok.io" target="_blank" rel="noopener noreferrer">
             @marysnopok
           </a>
         </p>

@@ -6,7 +6,7 @@ const todos = createSlice({
   name: "todos",
   initialState: {
     items: [],
-    filter: "all",
+    filter: "all"
   },
   reducers: {
     addTodo: (store, action) => {
@@ -14,7 +14,7 @@ const todos = createSlice({
         id: uniqid(),
         text: action.payload,
         isComplete: false,
-        creationDate: new Date(),
+        creationDate: new Date()
       };
 
       store.items = [...store.items, newTodo];
@@ -24,7 +24,7 @@ const todos = createSlice({
         if (item.id === action.payload) {
           const updatedTodo = {
             ...item,
-            isComplete: !item.isComplete,
+            isComplete: !item.isComplete
           };
           return updatedTodo;
         } else {
@@ -49,28 +49,27 @@ const todos = createSlice({
     },
     setDueDate: (store, action) => {
       const dueDate = action.payload.date;
-      const item = action.payload.item;
+      const { item } = action.payload;
       const itemInStore = store.items.find((el) => el.id === item.id);
       itemInStore.dueDate = dueDate;
-    },
-  },
+    }
+  }
 });
 
 export default todos;
 
 export const selectFilteredTodos = (store) => {
-  const filter = store.todos.filter;
-  const todos = store.todos.items;
+  const { filter, items } = store.todos;
   if (filter === "all") {
-    return todos;
+    return items;
   }
   if (filter === "active") {
-    return todos.filter((todo) => {
+    return items.filter((todo) => {
       return !todo.isComplete;
     });
   }
   if (filter === "completed") {
-    return todos.filter((todo) => {
+    return items.filter((todo) => {
       return todo.isComplete;
     });
   }

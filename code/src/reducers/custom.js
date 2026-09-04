@@ -9,14 +9,14 @@ const custom = createSlice({
   name: "custom",
   initialState: {
     bgs: [watch, notes, magnets, pencil],
-    selectedBackground: watch,
+    selectedBackground: watch
   },
   reducers: {
     selectBackground: (store, action) => {
       const image = action.payload;
       store.selectedBackground = image;
-    },
-  },
+    }
+  }
 });
 
 export default custom;

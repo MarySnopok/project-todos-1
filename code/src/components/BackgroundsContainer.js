@@ -1,7 +1,7 @@
 import React from "react";
-import { BackgroundSelection } from "./styled/BackgroundSelection";
 import { useDispatch, useSelector } from "react-redux";
-import custom from "reducers/custom";
+import custom from "../reducers/custom";
+import { BackgroundSelection } from "./styled/BackgroundSelection";
 
 export const BackgroundContainer = () => {
   const dispatch = useDispatch();
@@ -13,9 +13,9 @@ export const BackgroundContainer = () => {
   return (
     <BackgroundSelection>
       {bgs.map((item) => (
-        <div key={item} className="background-pic-wrapper" onClick={() => changeBackground(item)}>
-          <img className="background-picture" src={item} alt={item}></img>
-        </div>
+        <button key={item} type="button" className="background-pic-wrapper" onClick={() => changeBackground(item)}>
+          <img className="background-picture" src={item} alt={item} />
+        </button>
       ))}
     </BackgroundSelection>
   );

@@ -11,15 +11,20 @@ export const DatePick = ({ item }) => {
 
   const dispatch = useDispatch();
 
-  const dueDate = item.dueDate;
+  const { dueDate } = item;
   const setDueDate = (date) => {
-    dispatch(todos.actions.setDueDate({ item: item, date: date.getTime() }));
+    dispatch(todos.actions.setDueDate({ item, date: date.getTime() }));
   };
 
   const ExampleCustomInput = forwardRef(({ value, onClick }, ref) => (
-    <button className={dueDateCheck ? "outdated" : "valid"} area-label="decoration" onClick={onClick} ref={ref}>
-      {value ? value : "select"}
+    <button type="button" className={dueDateCheck ? "outdated" : "valid"} aria-label="decoration" onClick={onClick} ref={ref}>
+      {value || "select"}
     </button>
   ));
-  return <ReactDatePicker selected={dueDate ? new Date(dueDate) : undefined} onChange={(date) => setDueDate(date)} customInput={<ExampleCustomInput />} />;
+  return (
+    <ReactDatePicker
+      selected={dueDate ? new Date(dueDate) : undefined}
+      onChange={(date) => setDueDate(date)}
+      customInput={<ExampleCustomInput />} />
+  );
 };

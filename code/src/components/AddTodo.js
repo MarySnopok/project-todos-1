@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
+import plus from "../assets/plus.svg";
 import { TodoInput } from "./styled/TodoInput";
 import { InputBtn } from "./styled/InputBtn";
-import plus from "assets/plus.svg";
 import todos from "../reducers/todos";
 
 export const AddTodo = () => {
@@ -27,7 +27,7 @@ export const AddTodo = () => {
       <div className="todo-input">
         <TodoInput height={30} width={218} value={input} type="input" min="1" onChange={(event) => setInput(event.target.value)} />
         <InputBtn onClick={switchToAll} type="submit">
-          <img className="plus" src={plus} alt="plus" area-label="plus"></img>
+          <img className="plus" src={plus} alt="plus" aria-label="plus" />
         </InputBtn>
       </div>
     </form>

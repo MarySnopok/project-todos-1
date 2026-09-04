@@ -2,13 +2,13 @@ import styled from "styled-components";
 import brush from "../../assets/brush.svg";
 
 export const CustomizeBtn = styled.button`
-  width: 36px;
+  width: 28px;
   border: none;
-  height: 36px;
+  height: 28px;
   background: url("${brush}");
   object-fit: cover;
   background-color: transparent;
-  margin-right: 34px;
+  margin-right: 30px;
 
   @media (min-width: 768px) {
     width: 50px;
