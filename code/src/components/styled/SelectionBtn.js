@@ -16,8 +16,8 @@ export const SelectionBtn = styled.button`
   margin-top: 6px;
 
   &:hover {
-    border: 2px solid palevioletred;
-    color: palevioletred;
+    border: 2px solid #b8305c
+    color: #b8305c;
   }
 
   @media (min-width: 768px) {

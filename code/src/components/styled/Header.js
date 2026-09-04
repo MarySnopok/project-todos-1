@@ -8,6 +8,6 @@ export const Header = styled.header`
   justify-content: flex-end;
   align-items: center;
   @media (min-width: 768px) {
-    height: 140px;
+    min-height: 140px;
   }
 `;

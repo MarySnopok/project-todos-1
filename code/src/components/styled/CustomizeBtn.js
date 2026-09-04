@@ -8,7 +8,7 @@ export const CustomizeBtn = styled.button`
   background: url("${brush}");
   object-fit: cover;
   background-color: transparent;
-  margin-right: 30px;
+  margin-right: 15px;
 
   @media (min-width: 768px) {
     width: 50px;

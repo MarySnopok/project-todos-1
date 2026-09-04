@@ -2,7 +2,7 @@ import { css } from "styled-components";
 
 export const SharedFooterAndHeaderStyles = css`
   width: ${(props) => props.width}%;
-  height: ${(props) => props.height}px;
+  min-height: ${(props) => props.height}px;
   font-size: 14px;
   display: flex;
   flex-wrap: wrap;

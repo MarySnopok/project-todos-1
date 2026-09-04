@@ -1,9 +1,11 @@
 import styled from "styled-components";
 
 export const BackgroundSelection = styled.div`
-  max-width: 220px;
+  max-width: 300px;
   display: flex;
   flex-direction: row;
+  flex-wrap: wrap;
+  gap: 6px;
   border: none;
   position: relative;
   align-items: center;
@@ -13,7 +15,8 @@ export const BackgroundSelection = styled.div`
   background-repeat: no-repeat;
 
   @media (min-width: 768px) {
-    max-width: 700px;
+    max-width: 720px;
+    gap: 10px;
 
     font-size: 18px;
   }

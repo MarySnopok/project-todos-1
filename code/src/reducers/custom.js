@@ -9,12 +9,22 @@ const custom = createSlice({
   name: "custom",
   initialState: {
     bgs: [watch, notes, magnets, pencil],
-    selectedBackground: watch
+    selectedBackground: watch,
+    customBackground: null
   },
   reducers: {
     selectBackground: (store, action) => {
       const image = action.payload;
       store.selectedBackground = image;
+    },
+    setCustomBackground: (store, action) => {
+      store.customBackground = action.payload;
+    },
+    removeCustomBackground: (store) => {
+      if (store.selectedBackground === store.customBackground) {
+        [store.selectedBackground] = store.bgs;
+      }
+      store.customBackground = null;
     }
   }
 });
