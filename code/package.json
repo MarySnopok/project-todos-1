@@ -2,6 +2,9 @@
   "name": "technigo-react-starter",
   "version": "1.0.0",
   "private": true,
+  "engines": {
+    "node": "22.x"
+  },
   "dependencies": {
     "@reduxjs/toolkit": "^2.2.7",
     "babel-eslint": "^10.0.3",
