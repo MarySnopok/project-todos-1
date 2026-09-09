@@ -6,7 +6,7 @@ import { Structure } from "./Structure";
 import { loadState, saveState } from "./localStorage";
 
 import "react-datepicker/dist/react-datepicker.css";
-import custom from "./reducers/custom";
+import custom, { getInitialBackgrounds } from "./reducers/custom";
 import todos from "./reducers/todos";
 
 const reducer = combineReducers({
@@ -14,7 +14,14 @@ const reducer = combineReducers({
   custom: custom.reducer
 });
 
-const store = configureStore({ reducer, preloadedState: loadState() });
+const preloadedState = loadState();
+if (preloadedState && preloadedState.custom) {
+  // the swatch options should reshuffle every reload, not stay frozen at
+  // whatever was picked on the very first visit and saved to localStorage
+  preloadedState.custom.bgs = getInitialBackgrounds();
+}
+
+const store = configureStore({ reducer, preloadedState });
 
 store.subscribe(
   // debouce npm package for better performances in case multiple changes occur in a short time
