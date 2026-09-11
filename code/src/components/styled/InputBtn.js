@@ -4,8 +4,8 @@ export const InputBtn = styled.button`
   border-radius: 2px;
   border: none;
   background-color: transparent;
-  border-left: 2px solid var(--theme-color);
-  color: var(--theme-color);
+  border-left: 2px solid var(--sub-theme-color);
+  color: var(--sub-theme-color);
   font-size: 14px;
   display: flex;
   justify-content: center;

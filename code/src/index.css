@@ -15,7 +15,8 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   --link-color: #666666;
-  --theme-color: #b8305c;
+  --danger-color: #b8305c;
+  --theme-color: #c8700c;
   --sub-theme-color: #4a4747;
   background-attachment: fixed;
   background-position: top;
@@ -49,8 +50,15 @@ h1 {
   display: grid;
   place-self: center;
   font-size: 46px;
-  color: var(--sub-theme-color);
   font-weight: 900;
+  --h1-gradient-start: var(--theme-color);
+  --h1-gradient-end: var(--sub-theme-color);
+  background: linear-gradient(135deg, var(--h1-gradient-start), var(--h1-gradient-end));
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+  transition: background-image 0.4s ease;
 }
 
 button:focus-visible,
@@ -174,7 +182,7 @@ a:focus-visible {
   margin: 20px;
   display: flex;
   flex-direction: row;
-  border: 2px solid var(--theme-color);
+  border: 2px solid var(--sub-theme-color);
   border-radius: 30px;
   background-color: rgba(255, 255, 255, 0.3);
   backdrop-filter: blur(10px);
