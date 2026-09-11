@@ -18,6 +18,7 @@ body {
   --danger-color: #b8305c;
   --theme-color: #c8700c;
   --sub-theme-color: #4a4747;
+  --text-color: #000000;
   background-attachment: fixed;
   background-position: top;
   background-size: cover;
@@ -47,10 +48,12 @@ a {
 }
 
 h1 {
-  display: grid;
-  place-self: center;
   font-size: 46px;
   font-weight: 900;
+  margin: 0;
+  max-width: 100%;
+  overflow-wrap: normal;
+  word-break: normal;
   --h1-gradient-start: var(--theme-color);
   --h1-gradient-end: var(--sub-theme-color);
   background: linear-gradient(135deg, var(--h1-gradient-start), var(--h1-gradient-end));
@@ -59,6 +62,43 @@ h1 {
   color: transparent;
   -webkit-text-fill-color: transparent;
   transition: background-image 0.4s ease;
+}
+
+h1[contenteditable="true"] {
+  cursor: text;
+  caret-color: var(--sub-theme-color);
+}
+
+h1:focus {
+  outline: none;
+}
+
+.list-name-wrapper {
+  position: relative;
+  margin-top: 30px;
+  display: inline-block;
+  max-width: 257px;
+}
+
+.list-name-edit-btn {
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: 1;
+  width: 18px;
+  height: 18px;
+  padding: 0;
+  border: none;
+  background: transparent;
+  color: var(--sub-theme-color);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.list-name-edit-btn svg {
+  width: 100%;
+  height: 100%;
 }
 
 button:focus-visible,
@@ -366,6 +406,7 @@ a:focus-visible {
   border: none;
   border-radius: 50%;
   background-color: white;
+  color: var(--sub-theme-color);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -450,6 +491,15 @@ a:focus-visible {
   }
   h1 {
     font-size: 70px;
+  }
+  .list-name-wrapper {
+    max-width: 455px;
+  }
+  .list-name-edit-btn {
+    top: 0;
+    right: 0;
+    width: 24px;
+    height: 24px;
   }
   .todo-wrapper,
   .nav-board-wrapper {

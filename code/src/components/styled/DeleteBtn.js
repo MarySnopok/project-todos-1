@@ -13,13 +13,15 @@ const rotate = keyframes`
 export const DeleteBtn = styled.button`
   background-color: transparent;
   border: none;
-  color: var(--danger-color);
+  color: var(--sub-theme-color);
   width: ${(props) => props.width}px;
   height: ${(props) => props.height}px;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 12px;
+  padding: 2px;
+  margin-right: 15px;
+  margin-left: 15px;
   font-family: "Nunito", sans-serif;
 
   &:hover {
@@ -28,6 +30,10 @@ export const DeleteBtn = styled.button`
   }
 
   @media (min-width: 768px) {
-    padding: 16px;
+    width: 28px;
+    height: 28px;
+    padding: 2px;
+    margin-right: 15px;
+    margin-left: 15px;
   }
 `;

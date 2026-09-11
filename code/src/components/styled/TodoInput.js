@@ -8,7 +8,8 @@ export const TodoInput = styled.input`
   border: transparent;
   text-decoration: none;
   border-radius: 30px;
-  color: var(--theme-color);
+  color: var(--text-color);
+  caret-color: var(--sub-theme-color);
   font-size: 16px;
   padding: 4px;
   margin-left: 10px;
