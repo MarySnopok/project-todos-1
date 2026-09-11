@@ -13,6 +13,7 @@ const rotate = keyframes`
 export const DeleteBtn = styled.button`
   background-color: transparent;
   border: none;
+  color: var(--danger-color);
   width: ${(props) => props.width}px;
   height: ${(props) => props.height}px;
   display: flex;

@@ -1,7 +1,7 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import dayjs from "dayjs";
-import bin from "../assets/recycle-bin.svg";
+import { ReactComponent as BinIcon } from "../assets/recycle-bin.svg";
 import { DeleteBtn } from "./styled/DeleteBtn";
 import { CreationDate } from "./CreationDate";
 import { DatePick } from "./DatePick";
@@ -39,7 +39,7 @@ export const AllTodoList = () => {
               </label>
               <p className={item.isComplete ? "completed" : "uncompleted"}>{item.text}</p>
               <DeleteBtn width={20} height={20} onClick={() => onDeleteTodo(item.id)} aria-label={`Delete "${item.text}"`}>
-                <img className="bin" alt="" src={bin} />
+                <BinIcon className="bin" aria-hidden="true" />
               </DeleteBtn>
             </div>
             <CreationDate item={item} />

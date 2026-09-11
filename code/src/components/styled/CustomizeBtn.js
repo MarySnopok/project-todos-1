@@ -1,14 +1,23 @@
+import React from "react";
 import styled from "styled-components";
-import brush from "../../assets/brush.svg";
+import { ReactComponent as BrushIcon } from "../../assets/brush.svg";
 
-export const CustomizeBtn = styled.button`
+const StyledCustomizeBtn = styled.button`
   width: 26px;
-  border: none;
   height: 26px;
-  background: url("${brush}");
-  object-fit: cover;
+  border: none;
   background-color: transparent;
+  color: var(--theme-color);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
   margin-right: 15px;
+
+  svg {
+    width: 100%;
+    height: 100%;
+  }
 
   @media (min-width: 768px) {
     width: 36px;
@@ -21,3 +30,9 @@ export const CustomizeBtn = styled.button`
     margin-right: 52px;
   }
 `;
+
+export const CustomizeBtn = (props) => (
+  <StyledCustomizeBtn type="button" {...props}>
+    <BrushIcon aria-hidden="true" />
+  </StyledCustomizeBtn>
+);

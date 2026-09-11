@@ -1,8 +1,8 @@
 import React, { useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import custom from "../reducers/custom";
-import plus from "../assets/plus.svg";
-import bin from "../assets/recycle-bin.svg";
+import { ReactComponent as PlusIcon } from "../assets/plus.svg";
+import { ReactComponent as BinIcon } from "../assets/recycle-bin.svg";
 import { BackgroundSelection } from "./styled/BackgroundSelection";
 
 const MAX_DIMENSION = 1200;
@@ -88,17 +88,17 @@ export const BackgroundContainer = () => {
             aria-label={isCustomSelected ? "Your custom background is selected. Tap again to show the remove button." : "Select your custom background"}>
             <img className="background-picture" src={customBackground} alt="Custom background" />
           </button>
-          {showRemove && (
+          {showRemove ? (
             <button type="button" className="custom-slot-remove" onClick={removeCustomBackground} aria-label="Remove custom background">
-              <img src={bin} alt="" />
+              <BinIcon aria-hidden="true" />
             </button>
-          )}
+          ) : null}
         </div>
       ) : (
         <button type="button" className="background-pic-wrapper placeholder" onClick={openFilePicker} aria-label="Add a background image from your device">
           <span className="placeholder-blur" aria-hidden="true" />
           <span className="placeholder-plus-badge" aria-hidden="true">
-            <img src={plus} alt="" />
+            <PlusIcon aria-hidden="true" />
           </span>
         </button>
       )}

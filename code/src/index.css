@@ -373,7 +373,7 @@ a:focus-visible {
   cursor: pointer;
 }
 
-.custom-slot-remove img {
+.custom-slot-remove svg {
   width: 10px;
   height: 10px;
   padding: 0;
@@ -407,7 +407,7 @@ a:focus-visible {
   justify-content: center;
 }
 
-.placeholder-plus-badge img {
+.placeholder-plus-badge svg {
   width: 14px;
   height: 14px;
 }
@@ -503,11 +503,11 @@ a:focus-visible {
     width: 26px;
     height: 26px;
   }
-  .custom-slot-remove img {
+  .custom-slot-remove svg {
     width: 14px;
     height: 14px;
   }
-  .placeholder-plus-badge img {
+  .placeholder-plus-badge svg {
     width: 18px;
     height: 22px;
   }
