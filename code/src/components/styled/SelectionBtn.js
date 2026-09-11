@@ -15,7 +15,8 @@ export const SelectionBtn = styled.button`
   font-weight: 900;
   margin-top: 6px;
 
-  &:hover {
+  &:hover,
+  &[aria-current="true"] {
     border: 2px solid var(--theme-color);
     color: var(--theme-color);
     background-color: rgba(255, 255, 255, 0.4);
