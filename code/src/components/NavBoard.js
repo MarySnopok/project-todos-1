@@ -12,6 +12,7 @@ export const NavBoard = () => {
       <SelectionBtn onClick={() => dispatch(todos.actions.changeFilter("all"))}>all</SelectionBtn>
       <SelectionBtn onClick={() => dispatch(todos.actions.changeFilter("active"))}>active</SelectionBtn>
       <SelectionBtn onClick={() => dispatch(todos.actions.changeFilter("completed"))}>done</SelectionBtn>
+      <SelectionBtn onClick={() => dispatch(todos.actions.changeFilter("outdated"))}>outdated</SelectionBtn>
     </div>
   );
 };

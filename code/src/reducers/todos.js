@@ -1,4 +1,5 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, createSelector } from "@reduxjs/toolkit";
+import dayjs from "dayjs";
 
 import uniqid from "uniqid";
 
@@ -58,19 +59,18 @@ const todos = createSlice({
 
 export default todos;
 
-export const selectFilteredTodos = (store) => {
-  const { filter, items } = store.todos;
-  if (filter === "all") {
-    return items;
-  }
+const selectItems = (store) => store.todos.items;
+const selectFilter = (store) => store.todos.filter;
+
+export const selectFilteredTodos = createSelector([selectItems, selectFilter], (items, filter) => {
   if (filter === "active") {
-    return items.filter((todo) => {
-      return !todo.isComplete;
-    });
+    return items.filter((todo) => !todo.isComplete);
   }
   if (filter === "completed") {
-    return items.filter((todo) => {
-      return todo.isComplete;
-    });
+    return items.filter((todo) => todo.isComplete);
   }
-};
+  if (filter === "outdated") {
+    return items.filter((todo) => todo.dueDate && dayjs(todo.dueDate).isBefore(dayjs()));
+  }
+  return items;
+});

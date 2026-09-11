@@ -18,6 +18,8 @@ export const SelectionBtn = styled.button`
   &:hover {
     border: 2px solid var(--theme-color);
     color: var(--theme-color);
+    background-color: rgba(255, 255, 255, 0.4);
+    backdrop-filter: blur(10px);
   }
 
   @media (min-width: 768px) {

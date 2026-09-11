@@ -6,7 +6,7 @@ export const Signature = () => {
     <Footer height={100} width={100}>
       <div className="contacts-wrapper">
         <p>
-          created and developed by &#8203;
+          designed and developed by &#8203;
           <a className="link" href="https://snopok.io" target="_blank" rel="noopener noreferrer">
             @marysnopok
           </a>
