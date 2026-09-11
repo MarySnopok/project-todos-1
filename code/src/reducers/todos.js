@@ -53,6 +53,19 @@ const todos = createSlice({
       const { item } = action.payload;
       const itemInStore = store.items.find((el) => el.id === item.id);
       itemInStore.dueDate = dueDate;
+    },
+    reorderTodos: (store, action) => {
+      const newVisibleOrder = action.payload;
+      const visibleIds = new Set(newVisibleOrder);
+      const original = store.items;
+      let cursor = 0;
+
+      store.items = original.map((item) => {
+        if (!visibleIds.has(item.id)) return item;
+        const nextId = newVisibleOrder[cursor];
+        cursor += 1;
+        return original.find((el) => el.id === nextId);
+      });
     }
   }
 });

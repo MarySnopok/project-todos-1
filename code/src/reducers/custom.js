@@ -5,20 +5,10 @@ import notes from "../assets/notes.jpg";
 import magnets from "../assets/magnets.jpg";
 import pencil from "../assets/pencil.jpg";
 import minimalistic from "../assets/minimalistic.jpg";
-import purpleDesk from "../assets/purpleDesk.jpg";
 import tealClip from "../assets/tealClip.jpg";
 import whiteCotton from "../assets/whiteCotton.jpg";
 
-const allBackgrounds = [
-  watch,
-  notes,
-  magnets,
-  pencil,
-  minimalistic,
-  purpleDesk,
-  tealClip,
-  whiteCotton
-];
+const allBackgrounds = [watch, notes, magnets, pencil, minimalistic, tealClip, whiteCotton];
 
 export const getInitialBackgrounds = () => {
   const shuffled = [...allBackgrounds];
