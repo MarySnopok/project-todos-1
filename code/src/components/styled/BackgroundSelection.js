@@ -13,6 +13,7 @@ export const BackgroundSelection = styled.div`
   font-size: 16px;
   background-size: contain;
   background-repeat: no-repeat;
+  margin-right: 15px;
 
   @media (min-width: 768px) {
     max-width: 720px;

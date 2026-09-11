@@ -7,7 +7,7 @@ export const CreationDate = ({ item }) => {
       <span className="label" aria-label="decoration">
         created:
       </span>{" "}
-      {dayjs(item.creationDate).format("DD MMM")}
+      {dayjs(item.creationDate).format("DD MMM YYYY HH:mm")}
     </p>
   );
 };
