@@ -28,6 +28,7 @@ export const DatePick = ({ item }) => {
     <ReactDatePicker
       selected={dueDate ? new Date(dueDate) : undefined}
       onChange={(date) => setDueDate(date)}
-      customInput={<ExampleCustomInput />} />
+      customInput={<ExampleCustomInput />}
+      portalId="datepicker-portal" />
   );
 };

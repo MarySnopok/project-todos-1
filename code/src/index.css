@@ -87,7 +87,8 @@ h1:focus {
   z-index: 1;
   width: 18px;
   height: 18px;
-  padding: 0;
+  padding-top: 2px;
+  padding-right: 2px;
   border: none;
   background: transparent;
   color: var(--sub-theme-color);
@@ -120,11 +121,13 @@ a:focus-visible {
   text-decoration: line-through;
   color: var(--link-color);
   flex: 1;
+  margin: 0;
 }
 
 .uncompleted {
   text-decoration: none;
   flex: 1;
+  margin: 0;
 }
 
 .main-grid {
@@ -170,7 +173,9 @@ a:focus-visible {
   backdrop-filter: blur(10px);
   cursor: grab;
   touch-action: none;
-  transition: transform 0.15s ease, box-shadow 0.15s ease;
+  transition:
+    transform 0.15s ease,
+    box-shadow 0.15s ease;
 }
 
 .one-todo-wrapper:hover {
@@ -180,6 +185,7 @@ a:focus-visible {
 
 .one-todo-wrapper.dragging {
   cursor: grabbing;
+  transition: none;
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
   opacity: 0.9;
 }
@@ -191,7 +197,7 @@ a:focus-visible {
 .flex-item {
   display: flex;
   justify-content: flex-start;
-  align-items: center;
+  align-items: flex-start;
   flex-direction: row;
   gap: 6px;
   flex-wrap: wrap;
@@ -251,6 +257,7 @@ a:focus-visible {
   width: 20px;
   height: 20px;
   margin-right: 6px;
+  margin-top: 1px;
 }
 
 .switch input {
@@ -505,6 +512,9 @@ a:focus-visible {
   }
   h1 {
     font-size: 70px;
+  }
+  .switch {
+    margin-top: 3.5px;
   }
   .list-name-wrapper {
     max-width: 455px;

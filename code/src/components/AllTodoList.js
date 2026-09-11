@@ -30,11 +30,11 @@ const SortableTodoItem = ({ item, onToggleTodo, onDeleteTodo }) => {
   } = useSortable({ id: item.id });
 
   const isOverdue = item.dueDate ? dayjs(item.dueDate).isBefore(dayjs()) : false;
-  const translateStyle = transform ? CSS.Transform.toString(transform) : undefined;
+  const translateStyle = transform ? CSS.Translate.toString(transform) : undefined;
 
   const style = {
     transform: isDragging ? `${translateStyle ? `${translateStyle} ` : ""}scale(1.04)` : translateStyle,
-    transition,
+    transition: isDragging ? "none" : transition,
     zIndex: isDragging ? 2 : undefined
   };
 
