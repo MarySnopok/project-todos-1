@@ -14,7 +14,7 @@ const todos = createSlice({
         id: uniqid(),
         text: action.payload,
         isComplete: false,
-        creationDate: new Date()
+        creationDate: Date.now()
       };
 
       store.items = [...store.items, newTodo];

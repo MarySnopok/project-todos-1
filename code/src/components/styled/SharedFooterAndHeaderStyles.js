@@ -9,7 +9,7 @@ export const SharedFooterAndHeaderStyles = css`
   word-break: break-all;
   font-weight: 400;
   font-family: "Nunito", sans-serif;
-  color: grey;
+  color: var(--sub-theme-color);
   box-sizing: border-box;
   @media (min-width: 768px) {
     width: 100%;

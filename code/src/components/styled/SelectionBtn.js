@@ -2,13 +2,13 @@ import styled from "styled-components";
 
 export const SelectionBtn = styled.button`
   background-color: transparent;
-  border: 2px solid grey;
+  border: 2px solid var(--sub-theme-color);
   width: ${(props) => props.width}px;
   height: ${(props) => props.height}px;
   font-size: 14px;
   padding: 10px;
   border-radius: 30px;
-  color: grey;
+  color: var(--sub-theme-color);
   font-weight: bolder;
   transition: 0.1s ease-in;
   font-family: "Nunito", sans-serif;
@@ -16,8 +16,8 @@ export const SelectionBtn = styled.button`
   margin-top: 6px;
 
   &:hover {
-    border: 2px solid #b8305c
-    color: #b8305c;
+    border: 2px solid var(--theme-color);
+    color: var(--theme-color);
   }
 
   @media (min-width: 768px) {
