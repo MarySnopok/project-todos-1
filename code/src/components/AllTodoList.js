@@ -12,7 +12,7 @@ import {
   arrayMove
 } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
-import { ReactComponent as BinIcon } from "../assets/recycle-bin.svg";
+import { ReactComponent as PlusIcon } from "../assets/plus.svg";
 import { DeleteBtn } from "./styled/DeleteBtn";
 import { CreationDate } from "./CreationDate";
 import { DatePick } from "./DatePick";
@@ -30,6 +30,10 @@ const SortableTodoItem = ({ item, onToggleTodo, onDeleteTodo }) => {
   } = useSortable({ id: item.id });
 
   const isOverdue = item.dueDate ? dayjs(item.dueDate).isBefore(dayjs()) : false;
+  const daysOverdue = isOverdue
+    ? dayjs().startOf("day").diff(dayjs(item.dueDate).startOf("day"), "day")
+    : 0;
+  const dueLabel = isOverdue ? `overdue by ${daysOverdue} day${daysOverdue === 1 ? "" : "s"}:` : "due:";
   const translateStyle = transform ? CSS.Translate.toString(transform) : undefined;
 
   const style = {
@@ -56,13 +60,18 @@ const SortableTodoItem = ({ item, onToggleTodo, onDeleteTodo }) => {
           <span className="custom-checkbox" />
         </label>
         <p className={item.isComplete ? "completed" : "uncompleted"}>{item.text}</p>
-        <DeleteBtn width={20} height={20} onClick={() => onDeleteTodo(item.id)} aria-label={`Delete "${item.text}"`}>
-          <BinIcon className="bin" aria-hidden="true" />
+        <DeleteBtn
+          className="remove-todo-btn"
+          width={20}
+          height={20}
+          onClick={() => onDeleteTodo(item.id)}
+          aria-label={`Delete "${item.text}"`}>
+          <PlusIcon className="remove-cross" aria-hidden="true" />
         </DeleteBtn>
       </div>
       <CreationDate item={item} />
       <span className="due-date">
-        due:
+        {dueLabel}
         <DatePick item={item} />
       </span>
     </div>

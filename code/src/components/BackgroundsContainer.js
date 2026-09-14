@@ -2,7 +2,6 @@ import React, { useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import custom from "../reducers/custom";
 import { ReactComponent as PlusIcon } from "../assets/plus.svg";
-import { ReactComponent as BinIcon } from "../assets/recycle-bin.svg";
 import { BackgroundSelection } from "./styled/BackgroundSelection";
 
 const MAX_DIMENSION = 1200;
@@ -69,6 +68,7 @@ export const BackgroundContainer = () => {
 
     const dataUrl = await resizeImageToDataUrl(file);
     dispatch(custom.actions.setCustomBackground(dataUrl));
+    dispatch(custom.actions.selectBackground(dataUrl));
   };
 
   return (
@@ -90,7 +90,7 @@ export const BackgroundContainer = () => {
           </button>
           {showRemove ? (
             <button type="button" className="custom-slot-remove" onClick={removeCustomBackground} aria-label="Remove custom background">
-              <BinIcon aria-hidden="true" />
+              <PlusIcon className="remove-cross" aria-hidden="true" />
             </button>
           ) : null}
         </div>

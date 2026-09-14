@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { getSwatches } from "colorthief";
+import { getSwatches, getPalette } from "colorthief";
 
 import { AddTodo } from "./components/AddTodo";
 import { Header } from "./components/styled/Header";
@@ -10,7 +10,6 @@ import { NavBoard } from "./components/NavBoard";
 import { AllTodoList } from "./components/AllTodoList";
 import { CustomizeBtn } from "./components/styled/CustomizeBtn";
 import { BackgroundContainer } from "./components/BackgroundsContainer";
-import { ReactComponent as BrushIcon } from "./assets/brush.svg";
 import custom from "./reducers/custom";
 
 const MAX_LIST_NAME_LENGTH = 50;
@@ -18,6 +17,53 @@ const MAX_LIST_NAME_LENGTH = 50;
 const pickSwatchColor = (swatches, names, fallback) => {
   const match = names.map((name) => swatches[name]).find((swatch) => swatch);
   return match ? match.color.hex() : fallback;
+};
+
+const hslToHex = (h, s, l) => {
+  const sNorm = s / 100;
+  const lNorm = l / 100;
+  const c = (1 - Math.abs(2 * lNorm - 1)) * sNorm;
+  const x = c * (1 - Math.abs(((h / 60) % 2) - 1));
+  const m = lNorm - c / 2;
+  let rgb = [0, 0, 0];
+  if (h < 60) rgb = [c, x, 0];
+  else if (h < 120) rgb = [x, c, 0];
+  else if (h < 180) rgb = [0, c, x];
+  else if (h < 240) rgb = [0, x, c];
+  else if (h < 300) rgb = [x, 0, c];
+  else rgb = [c, 0, x];
+
+  const toHex = (v) => Math.round((v + m) * 255).toString(16).padStart(2, "0");
+  return `#${toHex(rgb[0])}${toHex(rgb[1])}${toHex(rgb[2])}`;
+};
+
+const MIN_VISIBLE_LIGHTNESS = 15;
+const MAX_VISIBLE_LIGHTNESS = 85;
+const SATURATION_BOOST = 10;
+const MIN_USABLE_SATURATION = 15;
+const MIN_USABLE_LIGHTNESS = 20;
+const FALLBACK_THEME_COLOR = "var(--fallback-color)";
+
+const pickThemeColor = (palette) => {
+  if (!palette || palette.length === 0) return FALLBACK_THEME_COLOR;
+
+  const visibleColors = palette.filter((color) => {
+    const { l } = color.hsl();
+    return l > MIN_VISIBLE_LIGHTNESS && l < MAX_VISIBLE_LIGHTNESS;
+  });
+  const candidates = visibleColors.length > 0 ? visibleColors : palette;
+
+  const mostSaturated = candidates.reduce((best, color) => (
+    color.hsl().s > best.hsl().s ? color : best
+  ));
+
+  const { h, s, l } = mostSaturated.hsl();
+  if (s < MIN_USABLE_SATURATION || l < MIN_USABLE_LIGHTNESS) {
+    return FALLBACK_THEME_COLOR;
+  }
+
+  const boostedSaturation = Math.min(s + SATURATION_BOOST, 100);
+  return hslToHex(h, boostedSaturation, l);
 };
 
 const moveCursorToEnd = (element) => {
@@ -77,17 +123,29 @@ export const Structure = () => {
 
     image.onload = async () => {
       let swatches;
+      let palette;
       try {
-        swatches = await getSwatches(image);
+        [swatches, palette] = await Promise.all([
+          getSwatches(image),
+          getPalette(image, { colorCount: 20 })
+        ]);
       } catch (error) {
+        if (!cancelled) {
+          document.body.style.setProperty("--theme-color", "var(--fallback-color)");
+        }
         return;
       }
-      if (cancelled || !h1Ref.current) return;
+      if (cancelled) return;
 
-      const startColor = pickSwatchColor(swatches, ["Vibrant", "LightVibrant", "Muted"], "#b8305c");
-      const endColor = pickSwatchColor(swatches, ["DarkVibrant", "DarkMuted", "Muted"], "#4a4747");
-      h1Ref.current.style.setProperty("--h1-gradient-start", startColor);
-      h1Ref.current.style.setProperty("--h1-gradient-end", endColor);
+      if (h1Ref.current) {
+        const startColor = pickSwatchColor(swatches, ["Vibrant", "LightVibrant", "Muted"], "#b8305c");
+        const endColor = pickSwatchColor(swatches, ["DarkVibrant", "DarkMuted", "Muted"], "#4a4747");
+        h1Ref.current.style.setProperty("--h1-gradient-start", startColor);
+        h1Ref.current.style.setProperty("--h1-gradient-end", endColor);
+      }
+
+      const themeColor = pickThemeColor(palette);
+      document.body.style.setProperty("--theme-color", themeColor);
     };
     image.src = selectedBackground;
 
@@ -121,16 +179,12 @@ export const Structure = () => {
               contentEditable={isEditingTitle}
               suppressContentEditableWarning
               aria-label="List name"
+              onClick={startEditingTitle}
               onInput={onListNameInput}
               onBlur={onListNameBlur}
               onKeyDown={onListNameKeyDown}>
               {listName}
             </h1>
-            {!isEditingTitle ? (
-              <button type="button" className="list-name-edit-btn" onClick={startEditingTitle} aria-label="Edit list name">
-                <BrushIcon aria-hidden="true" />
-              </button>
-            ) : null}
           </div>
           <AddTodo />
           <NavBoard />

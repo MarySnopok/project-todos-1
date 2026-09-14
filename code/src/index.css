@@ -19,6 +19,8 @@ body {
   --theme-color: #c8700c;
   --sub-theme-color: #4a4747;
   --text-color: #000000;
+  --background-color: #ffffff;
+  --fallback-color: #c8700c;
   background-attachment: fixed;
   background-position: top;
   background-size: cover;
@@ -54,6 +56,7 @@ h1 {
   max-width: 100%;
   overflow-wrap: normal;
   word-break: normal;
+  cursor: pointer;
   --h1-gradient-start: var(--theme-color);
   --h1-gradient-end: var(--sub-theme-color);
   background: linear-gradient(135deg, var(--h1-gradient-start), var(--h1-gradient-end));
@@ -78,28 +81,6 @@ h1:focus {
   margin-top: 30px;
   display: inline-block;
   max-width: 257px;
-}
-
-.list-name-edit-btn {
-  position: absolute;
-  top: 0;
-  right: 0;
-  z-index: 1;
-  width: 18px;
-  height: 18px;
-  padding-top: 2px;
-  padding-right: 2px;
-  border: none;
-  background: transparent;
-  color: var(--sub-theme-color);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.list-name-edit-btn svg {
-  width: 100%;
-  height: 100%;
 }
 
 button:focus-visible,
@@ -169,17 +150,15 @@ a:focus-visible {
   padding-left: 16px;
   padding-right: 16px;
   width: 257px;
-  background-color: rgba(255, 255, 255, 0.7);
+  background-color: var(--background-color);
   backdrop-filter: blur(10px);
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
   cursor: grab;
   touch-action: none;
-  transition:
-    transform 0.15s ease,
-    box-shadow 0.15s ease;
 }
 
 .one-todo-wrapper:hover {
-  transform: scale(1.02);
+  transform: scale(0.9);
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
 
@@ -188,10 +167,6 @@ a:focus-visible {
   transition: none;
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
   opacity: 0.9;
-}
-
-.one-todo-wrapper.overdue {
-  color: var(--theme-color);
 }
 
 .flex-item {
@@ -224,7 +199,7 @@ a:focus-visible {
   border-radius: 6px;
   color: var(--sub-theme-color);
   font-weight: 600;
-  background-color: rgba(255, 255, 255, 0.4);
+  background-color: var(--background-color);
   backdrop-filter: blur(10px);
 }
 
@@ -244,8 +219,7 @@ a:focus-visible {
   flex-direction: row;
   border: 2px solid var(--sub-theme-color);
   border-radius: 30px;
-  background-color: rgba(255, 255, 255, 0.3);
-  backdrop-filter: blur(10px);
+  background-color: var(--background-color);
 }
 
 /* // Custom check box  */
@@ -299,10 +273,10 @@ a:focus-visible {
   border: 2px solid var(--link-color);
 }
 
-.bin {
-  width: 12px;
-  height: 12px;
-  padding: 2px;
+.remove-cross {
+  width: 14px;
+  height: 14px;
+  transform: rotate(45deg);
 }
 
 .plus {
@@ -330,10 +304,6 @@ a:focus-visible {
   margin-top: 0;
 }
 
-.one-todo-wrapper.overdue .custom-checkbox {
-  border: 2px solid var(--theme-color);
-}
-
 .outdated,
 .valid,
 .unset {
@@ -353,8 +323,8 @@ a:focus-visible {
 }
 
 .outdated {
-  border: 1px solid var(--theme-color);
-  color: var(--theme-color);
+  border: 1px solid var(--danger-color);
+  color: var(--danger-color);
   text-align: left;
 }
 
@@ -519,12 +489,6 @@ a:focus-visible {
   .list-name-wrapper {
     max-width: 455px;
   }
-  .list-name-edit-btn {
-    top: 0;
-    right: 0;
-    width: 24px;
-    height: 24px;
-  }
   .todo-wrapper,
   .nav-board-wrapper {
     width: 500px;
@@ -544,10 +508,10 @@ a:focus-visible {
   .info-wrapper {
     font-size: 18px;
   }
-  .bin {
-    width: 16px;
-    height: 16px;
-    padding: 4px;
+  .remove-cross {
+    width: 20px;
+    height: 20px;
+    transform: rotate(45deg);
   }
   .plus {
     width: 18px;

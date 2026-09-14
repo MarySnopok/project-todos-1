@@ -13,7 +13,7 @@ export const TodoInput = styled.input`
   font-size: 16px;
   padding: 4px;
   margin-left: 10px;
-  background-color: transparent;
+  background-color: var(--background-color);
 
   @media (min-width: 768px) {
     width: 418px;

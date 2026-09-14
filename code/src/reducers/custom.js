@@ -21,7 +21,7 @@ export const getInitialBackgrounds = () => {
 
 const initialBgs = getInitialBackgrounds();
 
-const DEFAULT_LIST_NAME = "todos";
+const DEFAULT_LIST_NAME = "tap to customise";
 const MAX_LIST_NAME_LENGTH = 50;
 
 const custom = createSlice({
@@ -30,7 +30,7 @@ const custom = createSlice({
     bgs: initialBgs,
     selectedBackground: initialBgs[0],
     customBackground: null,
-    listName: DEFAULT_LIST_NAME
+    listName: DEFAULT_LIST_NAME,
   },
   reducers: {
     selectBackground: (store, action) => {
@@ -49,8 +49,8 @@ const custom = createSlice({
     setListName: (store, action) => {
       const trimmed = action.payload.trim().slice(0, MAX_LIST_NAME_LENGTH);
       store.listName = trimmed || DEFAULT_LIST_NAME;
-    }
-  }
+    },
+  },
 });
 
 export default custom;

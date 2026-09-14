@@ -16,11 +16,11 @@ export const NavBoard = () => {
       <SelectionBtn onClick={() => dispatch(todos.actions.changeFilter("active"))} aria-current={filter === "active" ? "true" : undefined}>
         active
       </SelectionBtn>
-      <SelectionBtn onClick={() => dispatch(todos.actions.changeFilter("completed"))} aria-current={filter === "completed" ? "true" : undefined}>
-        done
-      </SelectionBtn>
       <SelectionBtn onClick={() => dispatch(todos.actions.changeFilter("outdated"))} aria-current={filter === "outdated" ? "true" : undefined}>
         outdated
+      </SelectionBtn>
+      <SelectionBtn onClick={() => dispatch(todos.actions.changeFilter("completed"))} aria-current={filter === "completed" ? "true" : undefined}>
+        done
       </SelectionBtn>
     </div>
   );

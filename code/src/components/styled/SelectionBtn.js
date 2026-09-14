@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 export const SelectionBtn = styled.button`
-  background-color: transparent;
+  background-color: var(--background-color);
   border: 2px solid var(--sub-theme-color);
   width: ${(props) => props.width}px;
   height: ${(props) => props.height}px;
@@ -19,7 +19,7 @@ export const SelectionBtn = styled.button`
   &[aria-current="true"] {
     border: 2px solid var(--theme-color);
     color: var(--theme-color);
-    background-color: rgba(255, 255, 255, 0.4);
+    background-color: color-mix(in srgb, var(--theme-color) 18%, var(--background-color));
     backdrop-filter: blur(10px);
   }
 
