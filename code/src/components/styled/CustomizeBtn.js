@@ -3,30 +3,39 @@ import styled from "styled-components";
 import { ReactComponent as BrushIcon } from "../../assets/brush.svg";
 
 const StyledCustomizeBtn = styled.button`
+  box-sizing: border-box;
   width: 26px;
   height: 26px;
-  border: none;
-  background-color: transparent;
+  border: 2px solid var(--sub-theme-color);
+  border-radius: 50%;
+  background-color: var(--background-color);
   color: var(--theme-color);
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 0;
-  margin-right: 15px;
+  padding: 5px;
+  margin-right: 30px;
 
   svg {
     width: 100%;
     height: 100%;
   }
 
+  &:hover,
+  &[aria-expanded="true"] {
+    border-color: var(--theme-color);
+  }
+
   @media (min-width: 768px) {
     width: 36px;
     height: 36px;
+    padding: 7px;
     margin-right: 42px;
   }
   @media (min-width: 1200px) {
     width: 46px;
     height: 46px;
+    padding: 9px;
     margin-right: 52px;
   }
 `;

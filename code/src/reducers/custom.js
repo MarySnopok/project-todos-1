@@ -6,8 +6,17 @@ import pencil from "../assets/pencil.jpg";
 import minimalistic from "../assets/minimalistic.jpg";
 import tealClip from "../assets/tealClip.jpg";
 import whiteCotton from "../assets/whiteCotton.jpg";
+import glasses from "../assets/glasses.jpg";
+import donut from "../assets/donut.jpg";
+import yearly from "../assets/yearly.jpg";
+import redStars from "../assets/redStars.jpg";
+import eggs from "../assets/eggs.jpg";
+import craft from "../assets/craft.jpg";
+import fig from "../assets/fig.jpg";
+import cupcake from "../assets/cupcake.jpg";
 
-const allBackgrounds = [notes, magnets, pencil, minimalistic, tealClip, whiteCotton];
+// eslint-disable-next-line max-len
+const allBackgrounds = [cupcake, fig, craft, eggs, yearly, redStars, glasses, donut, notes, magnets, pencil, minimalistic, tealClip, whiteCotton];
 
 export const getInitialBackgrounds = () => {
   const shuffled = [...allBackgrounds];
