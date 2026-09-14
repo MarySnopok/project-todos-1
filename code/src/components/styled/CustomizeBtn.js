@@ -4,8 +4,8 @@ import { ReactComponent as BrushIcon } from "../../assets/brush.svg";
 
 const StyledCustomizeBtn = styled.button`
   box-sizing: border-box;
-  width: 26px;
-  height: 26px;
+  width: 29px;
+  height: 29px;
   border: 2px solid var(--sub-theme-color);
   border-radius: 50%;
   background-color: var(--background-color);
