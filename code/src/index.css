@@ -145,7 +145,7 @@ a:focus-visible {
   border-radius: 6px;
   margin-bottom: 6px;
   margin-top: 6px;
-  padding: 16px;
+  padding: 18px;
   width: 257px;
   background-color: var(--background-color);
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
@@ -154,7 +154,6 @@ a:focus-visible {
 }
 
 .one-todo-wrapper:hover {
-  transform: scale(1.02);
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
 
@@ -284,6 +283,12 @@ a:focus-visible {
   margin-top: 20px;
 }
 
+.export-btn-wrapper {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
 .page-nav-wrapper {
   display: flex;
   justify-content: center;
@@ -322,8 +327,8 @@ a:focus-visible {
 }
 
 .outdated {
-  border: 1px solid var(--danger-color);
-  color: var(--danger-color);
+  border: 1px solid var(--theme-color);
+  color: var(--theme-color);
   text-align: left;
 }
 
@@ -499,6 +504,7 @@ a:focus-visible {
   .one-todo-wrapper,
   .info-wrapper {
     width: 455px;
+    padding: 24px;
   }
   .info-wrapper {
     font-size: 18px;

@@ -53,6 +53,13 @@ const downloadBlob = (blob, fileName) => {
   URL.revokeObjectURL(url);
 };
 
+const getExportFile = (listName, items) => {
+  const blob = buildTodosPdf(listName, items);
+  const fileName = `${listName.replace(/[^a-z0-9]+/gi, "-").toLowerCase() || "todo-list"}.pdf`;
+  const file = new File([blob], fileName, { type: "application/pdf" });
+  return { blob, fileName, file };
+};
+
 export const InfoBoard = () => {
   const items = useSelector(selectActiveItems);
   const activePage = useSelector((store) => store.todos.activePage);
@@ -74,9 +81,7 @@ export const InfoBoard = () => {
   };
 
   const onExport = async () => {
-    const blob = buildTodosPdf(listName, items);
-    const fileName = `${listName.replace(/[^a-z0-9]+/gi, "-").toLowerCase() || "todo-list"}.pdf`;
-    const file = new File([blob], fileName, { type: "application/pdf" });
+    const { blob, fileName, file } = getExportFile(listName, items);
 
     if (navigator.canShare && navigator.canShare({ files: [file] })) {
       try {
