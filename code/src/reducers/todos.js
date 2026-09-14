@@ -60,6 +60,13 @@ const todos = createSlice({
 
       itemInStore.dueDate = dueDate;
     },
+    editTodoText: (store, action) => {
+      const { id, text } = action.payload;
+      const items = store.itemsByPage[store.activePage] || [];
+      const itemInStore = items.find((el) => el.id === id);
+
+      itemInStore.text = text;
+    },
     reorderTodos: (store, action) => {
       const newVisibleOrder = action.payload;
       const visibleIds = new Set(newVisibleOrder);

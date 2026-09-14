@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import dayjs from "dayjs";
 import {
@@ -19,7 +19,16 @@ import { DatePick } from "./DatePick";
 
 import todos, { selectFilteredTodos } from "../reducers/todos";
 
-const SortableTodoItem = ({ item, onToggleTodo, onDeleteTodo }) => {
+const moveCursorToEnd = (element) => {
+  const range = document.createRange();
+  const selection = window.getSelection();
+  range.selectNodeContents(element);
+  range.collapse(false);
+  selection.removeAllRanges();
+  selection.addRange(range);
+};
+
+const SortableTodoItem = ({ item, onToggleTodo, onDeleteTodo, onEditTodoText }) => {
   const {
     attributes,
     listeners,
@@ -28,6 +37,9 @@ const SortableTodoItem = ({ item, onToggleTodo, onDeleteTodo }) => {
     transition,
     isDragging
   } = useSortable({ id: item.id });
+
+  const [isEditingText, setIsEditingText] = useState(false);
+  const textRef = useRef(null);
 
   const isOverdue = item.dueDate ? dayjs(item.dueDate).isBefore(dayjs()) : false;
   const daysOverdue = isOverdue
@@ -41,6 +53,38 @@ const SortableTodoItem = ({ item, onToggleTodo, onDeleteTodo }) => {
     transition: isDragging ? "none" : transition,
     zIndex: isDragging ? 2 : undefined
   };
+
+  const startEditingText = () => {
+    setIsEditingText(true);
+  };
+
+  const onTextBlur = (e) => {
+    const newText = e.currentTarget.textContent.trim();
+    if (newText && newText !== item.text) {
+      onEditTodoText(item.id, newText);
+    } else {
+      e.currentTarget.textContent = item.text;
+    }
+    setIsEditingText(false);
+  };
+
+  const onTextKeyDown = (e) => {
+    // Without this, keystrokes bubble up to the card's drag-and-drop keyboard
+    // listeners (from {...listeners} below), which treat Space as pick-up/drop
+    // and swallow it instead of letting it type a space.
+    e.stopPropagation();
+    if (e.key === "Enter") {
+      e.preventDefault();
+      e.currentTarget.blur();
+    }
+  };
+
+  useEffect(() => {
+    if (isEditingText && textRef.current) {
+      textRef.current.focus();
+      moveCursorToEnd(textRef.current);
+    }
+  }, [isEditingText]);
 
   return (
     <div
@@ -59,7 +103,18 @@ const SortableTodoItem = ({ item, onToggleTodo, onDeleteTodo }) => {
             aria-label={`Mark "${item.text}" as ${item.isComplete ? "not complete" : "complete"}`} />
           <span className="custom-checkbox" />
         </label>
-        <p className={item.isComplete ? "completed" : "uncompleted"}>{item.text}</p>
+        {/* contentEditable genuinely makes this interactive; jsx-a11y doesn't know that yet */}
+        {/* eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions */}
+        <p
+          ref={textRef}
+          contentEditable={isEditingText}
+          suppressContentEditableWarning
+          className={item.isComplete ? "completed" : "uncompleted"}
+          onClick={startEditingText}
+          onBlur={onTextBlur}
+          onKeyDown={onTextKeyDown}>
+          {item.text}
+        </p>
         <DeleteBtn
           className="remove-todo-btn"
           width={20}
@@ -96,6 +151,10 @@ export const AllTodoList = () => {
     dispatch(todos.actions.deleteTodo(id));
   };
 
+  const onEditTodoText = (id, text) => {
+    dispatch(todos.actions.editTodoText({ id, text }));
+  };
+
   const onDragEnd = (event) => {
     const { active, over } = event;
     if (!over || active.id === over.id) return;
@@ -116,7 +175,8 @@ export const AllTodoList = () => {
               key={item.id}
               item={item}
               onToggleTodo={onToggleTodo}
-              onDeleteTodo={onDeleteTodo} />
+              onDeleteTodo={onDeleteTodo}
+              onEditTodoText={onEditTodoText} />
           ))}
         </section>
       </SortableContext>

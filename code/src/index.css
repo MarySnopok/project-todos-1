@@ -98,6 +98,27 @@ a:focus-visible {
   font-weight: bolder;
 }
 
+.completed,
+.uncompleted {
+  cursor: pointer;
+}
+
+.completed[contenteditable="true"],
+.uncompleted[contenteditable="true"] {
+  cursor: text;
+  outline: 2px solid var(--theme-color);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+@media (max-width: 767px) {
+  .completed[contenteditable="true"],
+  .uncompleted[contenteditable="true"] {
+    /* keeps font-size at/above 16px so mobile Safari doesn't auto-zoom the page on focus */
+    font-size: 16px;
+  }
+}
+
 .completed {
   text-decoration: line-through;
   color: var(--link-color);
