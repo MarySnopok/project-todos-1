@@ -25,6 +25,15 @@ if (preloadedState && preloadedState.custom) {
     preloadedState.custom.listNames = [preloadedState.custom.listName, null, null];
     delete preloadedState.custom.listName;
   }
+
+  // migrate state saved before per-page backgrounds (single background fields -> per-page arrays)
+  const { selectedBackground, customBackground } = preloadedState.custom;
+  if (selectedBackground !== undefined && !preloadedState.custom.selectedBackgroundByPage) {
+    preloadedState.custom.selectedBackgroundByPage = [selectedBackground, null, null];
+    preloadedState.custom.customBackgroundByPage = [customBackground || null, null, null];
+    delete preloadedState.custom.selectedBackground;
+    delete preloadedState.custom.customBackground;
+  }
 }
 if (preloadedState && preloadedState.todos) {
   // migrate state saved before multi-list support (single items/filter -> per-page arrays)

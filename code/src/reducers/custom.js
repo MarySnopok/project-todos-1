@@ -28,23 +28,27 @@ const custom = createSlice({
   name: "custom",
   initialState: {
     bgs: initialBgs,
-    selectedBackground: initialBgs[0],
-    customBackground: null,
+    selectedBackgroundByPage: [initialBgs[0], null, null],
+    customBackgroundByPage: [null, null, null],
     listNames: [DEFAULT_LIST_NAME, null, null]
   },
   reducers: {
     selectBackground: (store, action) => {
-      const image = action.payload;
-      store.selectedBackground = image;
+      const { pageIndex, image } = action.payload;
+      store.selectedBackgroundByPage[pageIndex] = image;
     },
     setCustomBackground: (store, action) => {
-      store.customBackground = action.payload;
+      const { pageIndex, image } = action.payload;
+      store.customBackgroundByPage[pageIndex] = image;
     },
-    removeCustomBackground: (store) => {
-      if (store.selectedBackground === store.customBackground) {
-        [store.selectedBackground] = store.bgs;
+    removeCustomBackground: (store, action) => {
+      const pageIndex = action.payload;
+      const customBackground = store.customBackgroundByPage[pageIndex];
+
+      if (store.selectedBackgroundByPage[pageIndex] === customBackground) {
+        [store.selectedBackgroundByPage[pageIndex]] = store.bgs;
       }
-      store.customBackground = null;
+      store.customBackgroundByPage[pageIndex] = null;
     },
     setListName: (store, action) => {
       const { pageIndex, name } = action.payload;
@@ -56,6 +60,9 @@ const custom = createSlice({
 
       if (store.listNames[pageIndex] === null) {
         store.listNames[pageIndex] = DEFAULT_LIST_NAME;
+      }
+      if (store.selectedBackgroundByPage[pageIndex] === null) {
+        [store.selectedBackgroundByPage[pageIndex]] = store.bgs;
       }
     }
   }

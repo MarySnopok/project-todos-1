@@ -78,8 +78,9 @@ const moveCursorToEnd = (element) => {
 export const Structure = () => {
   const [value, setValue] = useState("closed");
   const [isEditingTitle, setIsEditingTitle] = useState(false);
-  const selectedBackground = useSelector((store) => store.custom.selectedBackground);
   const activePage = useSelector((store) => store.todos.activePage);
+  const selectedBackgroundByPage = useSelector((store) => store.custom.selectedBackgroundByPage);
+  const selectedBackground = selectedBackgroundByPage[activePage];
   const listNames = useSelector((store) => store.custom.listNames);
   const listName = listNames[activePage];
   const dispatch = useDispatch();

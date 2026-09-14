@@ -30,20 +30,25 @@ const resizeImageToDataUrl = async (file) => {
 
 export const BackgroundContainer = () => {
   const dispatch = useDispatch();
+  const activePage = useSelector((store) => store.todos.activePage);
   const bgs = useSelector((store) => store.custom.bgs);
-  const customBackground = useSelector((store) => store.custom.customBackground);
-  const selectedBackground = useSelector((store) => store.custom.selectedBackground);
+  const customBackground = useSelector(
+    (store) => store.custom.customBackgroundByPage[activePage]
+  );
+  const selectedBackground = useSelector(
+    (store) => store.custom.selectedBackgroundByPage[activePage]
+  );
   const fileInputRef = useRef(null);
   const [showRemove, setShowRemove] = useState(false);
 
   const isCustomSelected = Boolean(customBackground) && selectedBackground === customBackground;
 
-  const changeBackground = (item) => {
-    dispatch(custom.actions.selectBackground(item));
+  const changeBackground = (image) => {
+    dispatch(custom.actions.selectBackground({ pageIndex: activePage, image }));
   };
 
   const removeCustomBackground = () => {
-    dispatch(custom.actions.removeCustomBackground());
+    dispatch(custom.actions.removeCustomBackground(activePage));
     setShowRemove(false);
   };
 
@@ -67,8 +72,8 @@ export const BackgroundContainer = () => {
     if (!file) return;
 
     const dataUrl = await resizeImageToDataUrl(file);
-    dispatch(custom.actions.setCustomBackground(dataUrl));
-    dispatch(custom.actions.selectBackground(dataUrl));
+    dispatch(custom.actions.setCustomBackground({ pageIndex: activePage, image: dataUrl }));
+    dispatch(custom.actions.selectBackground({ pageIndex: activePage, image: dataUrl }));
   };
 
   return (
