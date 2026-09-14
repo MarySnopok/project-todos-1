@@ -1,11 +1,16 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { SelectionBtn } from "./styled/SelectionBtn";
+import { PageNavBtn } from "./styled/PageNavBtn";
+import { ReactComponent as PlusIcon } from "../assets/plus.svg";
 
-import todos from "../reducers/todos";
+import todos, { MAX_PAGES, selectActiveItems, selectPageCount } from "../reducers/todos";
+import custom from "../reducers/custom";
 
 export const InfoBoard = () => {
-  const items = useSelector((store) => store.todos.items);
+  const items = useSelector(selectActiveItems);
+  const activePage = useSelector((store) => store.todos.activePage);
+  const pageCount = useSelector(selectPageCount);
   const dispatch = useDispatch();
 
   const uncompletedTasks = items.filter((item) => {
@@ -14,6 +19,11 @@ export const InfoBoard = () => {
 
   const onDeleteCompletedTasks = () => {
     dispatch(todos.actions.deleteCompletedTasks());
+  };
+
+  const switchToPage = (pageIndex) => {
+    dispatch(todos.actions.activatePage(pageIndex));
+    dispatch(custom.actions.activatePage(pageIndex));
   };
 
   return (
@@ -34,6 +44,23 @@ export const InfoBoard = () => {
       </div>
       <div className="clear-btn-wrapper">
         <SelectionBtn onClick={onDeleteCompletedTasks}>clear completed</SelectionBtn>
+      </div>
+      <div className="page-nav-wrapper">
+        {Array.from({ length: pageCount }, (page, pageIndex) => (
+          <PageNavBtn
+            // eslint-disable-next-line react/no-array-index-key
+            key={pageIndex}
+            onClick={() => switchToPage(pageIndex)}
+            aria-current={activePage === pageIndex ? "true" : undefined}
+            aria-label={`Switch to todo list ${pageIndex + 1}`}>
+            {pageIndex + 1}
+          </PageNavBtn>
+        ))}
+        {pageCount < MAX_PAGES ? (
+          <PageNavBtn onClick={() => switchToPage(pageCount)} aria-label="Add a new todo list">
+            <PlusIcon aria-hidden="true" />
+          </PageNavBtn>
+        ) : null}
       </div>
     </section>
   );

@@ -30,7 +30,7 @@ const custom = createSlice({
     bgs: initialBgs,
     selectedBackground: initialBgs[0],
     customBackground: null,
-    listName: DEFAULT_LIST_NAME,
+    listNames: [DEFAULT_LIST_NAME, null, null]
   },
   reducers: {
     selectBackground: (store, action) => {
@@ -47,10 +47,18 @@ const custom = createSlice({
       store.customBackground = null;
     },
     setListName: (store, action) => {
-      const trimmed = action.payload.trim().slice(0, MAX_LIST_NAME_LENGTH);
-      store.listName = trimmed || DEFAULT_LIST_NAME;
+      const { pageIndex, name } = action.payload;
+      const trimmed = name.trim().slice(0, MAX_LIST_NAME_LENGTH);
+      store.listNames[pageIndex] = trimmed || DEFAULT_LIST_NAME;
     },
-  },
+    activatePage: (store, action) => {
+      const pageIndex = action.payload;
+
+      if (store.listNames[pageIndex] === null) {
+        store.listNames[pageIndex] = DEFAULT_LIST_NAME;
+      }
+    }
+  }
 });
 
 export default custom;

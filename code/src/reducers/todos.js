@@ -3,11 +3,22 @@ import dayjs from "dayjs";
 
 import uniqid from "uniqid";
 
+export const MAX_PAGES = 3;
+const DEFAULT_TODO_TEXT = "Drag to change priorites in the list";
+
+const createDefaultTodo = () => ({
+  id: uniqid(),
+  text: DEFAULT_TODO_TEXT,
+  isComplete: false,
+  creationDate: Date.now()
+});
+
 const todos = createSlice({
   name: "todos",
   initialState: {
-    items: [],
-    filter: "all"
+    itemsByPage: [[], null, null],
+    filterByPage: ["all", "all", "all"],
+    activePage: 0
   },
   reducers: {
     addTodo: (store, action) => {
@@ -17,73 +28,95 @@ const todos = createSlice({
         isComplete: false,
         creationDate: Date.now()
       };
+      const items = store.itemsByPage[store.activePage] || [];
 
-      store.items = [...store.items, newTodo];
+      store.itemsByPage[store.activePage] = [...items, newTodo];
     },
     toggleTodo: (store, action) => {
-      const updatedItems = store.items.map((item) => {
-        if (item.id === action.payload) {
-          const updatedTodo = {
-            ...item,
-            isComplete: !item.isComplete
-          };
-          return updatedTodo;
-        } else {
-          return item;
-        }
-      });
+      const items = store.itemsByPage[store.activePage] || [];
 
-      store.items = updatedItems;
+      store.itemsByPage[store.activePage] = items.map((item) => (
+        item.id === action.payload ? { ...item, isComplete: !item.isComplete } : item
+      ));
     },
     deleteTodo: (store, action) => {
-      const decreasedItems = store.items.filter((item) => item.id !== action.payload);
+      const items = store.itemsByPage[store.activePage] || [];
 
-      store.items = decreasedItems;
+      store.itemsByPage[store.activePage] = items.filter((item) => item.id !== action.payload);
     },
     deleteCompletedTasks: (store) => {
-      const decreasedCompletedItems = store.items.filter((item) => !item.isComplete);
+      const items = store.itemsByPage[store.activePage] || [];
 
-      store.items = decreasedCompletedItems;
+      store.itemsByPage[store.activePage] = items.filter((item) => !item.isComplete);
     },
     changeFilter: (store, action) => {
-      store.filter = action.payload;
+      store.filterByPage[store.activePage] = action.payload;
     },
     setDueDate: (store, action) => {
       const dueDate = action.payload.date;
       const { item } = action.payload;
-      const itemInStore = store.items.find((el) => el.id === item.id);
+      const items = store.itemsByPage[store.activePage] || [];
+      const itemInStore = items.find((el) => el.id === item.id);
+
       itemInStore.dueDate = dueDate;
     },
     reorderTodos: (store, action) => {
       const newVisibleOrder = action.payload;
       const visibleIds = new Set(newVisibleOrder);
-      const original = store.items;
+      const original = store.itemsByPage[store.activePage] || [];
       let cursor = 0;
 
-      store.items = original.map((item) => {
+      store.itemsByPage[store.activePage] = original.map((item) => {
         if (!visibleIds.has(item.id)) return item;
         const nextId = newVisibleOrder[cursor];
         cursor += 1;
         return original.find((el) => el.id === nextId);
       });
+    },
+    activatePage: (store, action) => {
+      const pageIndex = action.payload;
+
+      store.activePage = pageIndex;
+      if (store.itemsByPage[pageIndex] === null) {
+        store.itemsByPage[pageIndex] = [createDefaultTodo()];
+      }
     }
   }
 });
 
 export default todos;
 
-const selectItems = (store) => store.todos.items;
-const selectFilter = (store) => store.todos.filter;
+const selectActivePage = (store) => store.todos.activePage;
+const selectItemsByPage = (store) => store.todos.itemsByPage;
+const selectFilterByPage = (store) => store.todos.filterByPage;
 
-export const selectFilteredTodos = createSelector([selectItems, selectFilter], (items, filter) => {
-  if (filter === "active") {
-    return items.filter((todo) => !todo.isComplete);
+export const selectActiveItems = createSelector(
+  [selectItemsByPage, selectActivePage],
+  (itemsByPage, activePage) => itemsByPage[activePage] || []
+);
+
+export const selectActiveFilter = createSelector(
+  [selectFilterByPage, selectActivePage],
+  (filterByPage, activePage) => filterByPage[activePage] || "all"
+);
+
+export const selectPageCount = createSelector(
+  [selectItemsByPage],
+  (itemsByPage) => itemsByPage.filter((items) => items !== null).length
+);
+
+export const selectFilteredTodos = createSelector(
+  [selectActiveItems, selectActiveFilter],
+  (items, filter) => {
+    if (filter === "active") {
+      return items.filter((todo) => !todo.isComplete);
+    }
+    if (filter === "completed") {
+      return items.filter((todo) => todo.isComplete);
+    }
+    if (filter === "outdated") {
+      return items.filter((todo) => todo.dueDate && dayjs(todo.dueDate).isBefore(dayjs()));
+    }
+    return items;
   }
-  if (filter === "completed") {
-    return items.filter((todo) => todo.isComplete);
-  }
-  if (filter === "outdated") {
-    return items.filter((todo) => todo.dueDate && dayjs(todo.dueDate).isBefore(dayjs()));
-  }
-  return items;
-});
+);

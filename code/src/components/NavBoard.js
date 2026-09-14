@@ -2,11 +2,11 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { SelectionBtn } from "./styled/SelectionBtn";
 
-import todos from "../reducers/todos";
+import todos, { selectActiveFilter } from "../reducers/todos";
 
 export const NavBoard = () => {
   const dispatch = useDispatch();
-  const filter = useSelector((store) => store.todos.filter);
+  const filter = useSelector(selectActiveFilter);
 
   return (
     <div className="nav-board-wrapper">

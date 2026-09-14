@@ -79,7 +79,9 @@ export const Structure = () => {
   const [value, setValue] = useState("closed");
   const [isEditingTitle, setIsEditingTitle] = useState(false);
   const selectedBackground = useSelector((store) => store.custom.selectedBackground);
-  const listName = useSelector((store) => store.custom.listName);
+  const activePage = useSelector((store) => store.todos.activePage);
+  const listNames = useSelector((store) => store.custom.listNames);
+  const listName = listNames[activePage];
   const dispatch = useDispatch();
   const h1Ref = useRef(null);
 
@@ -95,7 +97,8 @@ export const Structure = () => {
   };
 
   const onListNameBlur = (e) => {
-    dispatch(custom.actions.setListName(e.currentTarget.textContent));
+    const name = e.currentTarget.textContent;
+    dispatch(custom.actions.setListName({ pageIndex: activePage, name }));
     setIsEditingTitle(false);
   };
 

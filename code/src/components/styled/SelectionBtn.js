@@ -14,6 +14,14 @@ export const SelectionBtn = styled.button`
   font-family: "Nunito", sans-serif;
   font-weight: 900;
   margin-top: 6px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  svg {
+    width: 14px;
+    height: 14px;
+  }
 
   &:hover,
   &[aria-current="true"] {

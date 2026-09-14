@@ -19,6 +19,22 @@ if (preloadedState && preloadedState.custom) {
   // the swatch options should reshuffle every reload, not stay frozen at
   // whatever was picked on the very first visit and saved to localStorage
   preloadedState.custom.bgs = getInitialBackgrounds();
+
+  // migrate state saved before multi-list support (single listName -> listNames per page)
+  if (preloadedState.custom.listName !== undefined && !preloadedState.custom.listNames) {
+    preloadedState.custom.listNames = [preloadedState.custom.listName, null, null];
+    delete preloadedState.custom.listName;
+  }
+}
+if (preloadedState && preloadedState.todos) {
+  // migrate state saved before multi-list support (single items/filter -> per-page arrays)
+  if (preloadedState.todos.items !== undefined && !preloadedState.todos.itemsByPage) {
+    preloadedState.todos.itemsByPage = [preloadedState.todos.items, null, null];
+    preloadedState.todos.filterByPage = [preloadedState.todos.filter || "all", "all", "all"];
+    preloadedState.todos.activePage = 0;
+    delete preloadedState.todos.items;
+    delete preloadedState.todos.filter;
+  }
 }
 
 const store = configureStore({ reducer, preloadedState });
