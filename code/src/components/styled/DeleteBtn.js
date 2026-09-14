@@ -20,7 +20,6 @@ export const DeleteBtn = styled.button`
   align-items: center;
   justify-content: center;
   padding: 2px;
-  margin-right: 15px;
   margin-left: 15px;
   font-family: "Nunito", sans-serif;
 
@@ -33,7 +32,6 @@ export const DeleteBtn = styled.button`
     width: 28px;
     height: 28px;
     padding: 2px;
-    margin-right: 15px;
     margin-left: 15px;
   }
 `;

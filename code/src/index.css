@@ -144,14 +144,10 @@ a:focus-visible {
   color: var(--sub-theme-color);
   border-radius: 6px;
   margin-bottom: 6px;
-  margin-top: 2px;
-  padding-top: 10px;
-  padding-bottom: 10px;
-  padding-left: 16px;
-  padding-right: 16px;
+  margin-top: 6px;
+  padding: 16px;
   width: 257px;
   background-color: var(--background-color);
-  backdrop-filter: blur(10px);
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
   cursor: grab;
   touch-action: none;
@@ -188,19 +184,14 @@ a:focus-visible {
   text-align: center;
   word-break: break-all;
   border: none;
-  padding-bottom: 2px;
-  margin-top: 2px;
-  padding-top: 10px;
-  padding-bottom: 10px;
-  padding-left: 16px;
-  padding-right: 16px;
+  margin-top: 4px;
+  padding: 16px;
   width: 257px;
   font-size: 14px;
   border-radius: 6px;
   color: var(--sub-theme-color);
   font-weight: 600;
   background-color: var(--background-color);
-  backdrop-filter: blur(10px);
 }
 
 .nav-board-wrapper {
@@ -328,7 +319,6 @@ a:focus-visible {
   background-color: transparent;
   margin-left: 5px;
   text-align: left;
-  margin-bottom: 16px;
 }
 
 .outdated {
@@ -508,10 +498,6 @@ a:focus-visible {
   }
   .one-todo-wrapper,
   .info-wrapper {
-    padding-top: 10px;
-    padding-bottom: 10px;
-    padding-left: 16px;
-    padding-right: 16px;
     width: 455px;
   }
   .info-wrapper {
@@ -532,7 +518,6 @@ a:focus-visible {
   .unset {
     width: 76px;
     padding: 0 2px;
-    margin-bottom: 18px;
   }
   .background-pic-wrapper {
     display: flex;
