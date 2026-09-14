@@ -231,13 +231,14 @@ a:focus-visible {
 }
 
 .nav-board-wrapper {
+  box-sizing: border-box;
   padding: 4px;
   margin-bottom: 6px;
   margin-top: 10px;
   display: flex;
-  justify-content: space-evenly;
+  justify-content: space-between;
   align-items: stretch;
-  width: 257px;
+  width: 297px;
 }
 
 .todo-input {
@@ -317,7 +318,7 @@ a:focus-visible {
 }
 
 .clear-btn-wrapper {
-  margin-top: 20px;
+  margin-top: 10px;
 }
 
 .export-btn-wrapper {
@@ -331,7 +332,7 @@ a:focus-visible {
   justify-content: center;
   align-items: center;
   gap: 8px;
-  margin-top: 16px;
+  margin-top: 20px;
   margin-bottom: 20px;
 }
 
@@ -539,9 +540,11 @@ a:focus-visible {
   .list-name-wrapper {
     max-width: 455px;
   }
-  .todo-wrapper,
-  .nav-board-wrapper {
+  .todo-wrapper {
     width: 500px;
+  }
+  .nav-board-wrapper {
+    width: 507px;
   }
   .nav-board-wrapper {
     margin-bottom: 10px;
